@@ -31,6 +31,7 @@ import org.springframework.expression.Expression;
 import org.springframework.lang.Nullable;
 
 /**
+ * <p>该方法定义的key，condition，unless方法均用来解析缓存注解中对应的属性
  * Utility class handling the SpEL expression parsing.
  * Meant to be used as a reusable, thread-safe component.
  *

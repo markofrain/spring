@@ -74,15 +74,17 @@ public abstract class CachedExpressionEvaluator {
 
 
 	/**
-	 * Return the {@link Expression} for the specified SpEL value
-	 * <p>Parse the expression if it hasn't been already.
-	 * @param cache the cache to use
-	 * @param elementKey the element on which the expression is defined
-	 * @param expression the expression to parse
+	 *
+	 * 返回指定的SpEL值的 {@link Expression}
+	 * <p>解析未解析的表达式
+	 * <p>这一步将已解析的表达式存储，避免重复解析
+	 * @param cache 使用的缓存
+	 * @param elementKey 表达式定义所在的元素element
+	 * @param expression 要解析的表达式
 	 */
 	protected Expression getExpression(Map<ExpressionKey, Expression> cache,
 			AnnotatedElementKey elementKey, String expression) {
-
+		// 从缓存中获取是否之前已经解析过
 		ExpressionKey expressionKey = createKey(elementKey, expression);
 		Expression expr = cache.get(expressionKey);
 		if (expr == null) {

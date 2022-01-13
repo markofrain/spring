@@ -23,6 +23,10 @@ import org.springframework.cache.interceptor.CacheOperation;
 import org.springframework.lang.Nullable;
 
 /**
+ * 解析已知缓存注释类型的策略接口。
+ * AnnotationCacheOperationSource委托给这样的解析器，以支持特定的注释类型，
+ * 比如Spring自己的Cacheable、CachePut和cacheevict
+ *
  * Strategy interface for parsing known caching annotation types.
  * {@link AnnotationCacheOperationSource} delegates to such parsers
  * for supporting specific annotation types such as Spring's own
@@ -38,6 +42,8 @@ import org.springframework.lang.Nullable;
 public interface CacheAnnotationParser {
 
 	/**
+	 * <p>判断给定类是否 满足规定注解格式的缓存操作类</p>
+	 *
 	 * Determine whether the given class is a candidate for cache operations
 	 * in the annotation format of this {@code CacheAnnotationParser}.
 	 * <p>If this method returns {@code false}, the methods on the given class
@@ -56,6 +62,7 @@ public interface CacheAnnotationParser {
 	}
 
 	/**
+	 * 从类上解析缓存定义
 	 * Parse the cache definition for the given class,
 	 * based on an annotation type understood by this parser.
 	 * <p>This essentially parses a known cache annotation into Spring's metadata
@@ -68,6 +75,7 @@ public interface CacheAnnotationParser {
 	Collection<CacheOperation> parseCacheAnnotations(Class<?> type);
 
 	/**
+	 * 从方法上解析缓存定义
 	 * Parse the cache definition for the given method,
 	 * based on an annotation type understood by this parser.
 	 * <p>This essentially parses a known cache annotation into Spring's metadata

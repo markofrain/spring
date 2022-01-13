@@ -27,6 +27,8 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 
 /**
+ * <p>基本的CacheResolver实现，它需要具体的实现来提供基于调用上下文的缓存名称集合
+ * <p>获取Cache对象
  * A base {@link CacheResolver} implementation that requires the concrete
  * implementation to provide the collection of cache name(s) based on the
  * invocation context.

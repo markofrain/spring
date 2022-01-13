@@ -20,6 +20,7 @@ import org.springframework.cache.Cache.ValueWrapper;
 import org.springframework.lang.Nullable;
 
 /**
+ * <p>返回值valueWrapper的包装类，如果方法值本身返回空则通过ValueWrapper中进行返回。而直接返回null则表示没有对应缓存key的映射
  * Straightforward implementation of {@link org.springframework.cache.Cache.ValueWrapper},
  * simply holding the value as given at construction and returning it from {@link #get()}.
  *

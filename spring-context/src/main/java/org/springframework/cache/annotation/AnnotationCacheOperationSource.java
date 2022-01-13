@@ -31,6 +31,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 
 /**
+ * <p>以注解格式缓存元数据的CacheOperationSource接口实现类。该类读取Spring的Cacheable，CachePut和CacheEvict注解，并暴露Spring缓存基础下的相应缓存操作定义</p>
  * Implementation of the {@link org.springframework.cache.interceptor.CacheOperationSource
  * CacheOperationSource} interface for working with caching metadata in annotation format.
  *
@@ -126,6 +127,10 @@ public class AnnotationCacheOperationSource extends AbstractFallbackCacheOperati
 	}
 
 	/**
+	 * <p>通过给定的CacheOperationProvider确定缓存操作。
+	 * 实现类委托给已配置的CacheAnnotationParser来解析已知的注解获得Spring元数据属性类。
+	 * 可以重写用于支持自定义注解以支持缓存元数据
+	 * </p>
 	 * Determine the cache operation(s) for the given {@link CacheOperationProvider}.
 	 * <p>This implementation delegates to configured
 	 * {@link CacheAnnotationParser CacheAnnotationParsers}
@@ -190,6 +195,7 @@ public class AnnotationCacheOperationSource extends AbstractFallbackCacheOperati
 	protected interface CacheOperationProvider {
 
 		/**
+		 * <p>返回特定解析器提供的{@link CacheOperation}</p>
 		 * Return the {@link CacheOperation} instance(s) provided by the specified parser.
 		 * @param parser the parser to use
 		 * @return the cache operations, or {@code null} if none found

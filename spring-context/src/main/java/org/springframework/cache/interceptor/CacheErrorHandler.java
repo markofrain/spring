@@ -20,6 +20,8 @@ import org.springframework.cache.Cache;
 import org.springframework.lang.Nullable;
 
 /**
+ * <p>处理缓存相关错误的策略接口
+ *
  * A strategy for handling cache-related errors. In most cases, any
  * exception thrown by the provider should simply be thrown back at
  * the client but, in some circumstances, the infrastructure may need
@@ -35,6 +37,7 @@ import org.springframework.lang.Nullable;
 public interface CacheErrorHandler {
 
 	/**
+	 * <p>处理获取缓存操作异常时的处理方法
 	 * Handle the given runtime exception thrown by the cache provider when
 	 * retrieving an item with the specified {@code key}, possibly
 	 * rethrowing it as a fatal exception.
@@ -46,6 +49,7 @@ public interface CacheErrorHandler {
 	void handleCacheGetError(RuntimeException exception, Cache cache, Object key);
 
 	/**
+	 * <p>处理设置缓存操作异常时的处理方法
 	 * Handle the given runtime exception thrown by the cache provider when
 	 * updating an item with the specified {@code key} and {@code value},
 	 * possibly rethrowing it as a fatal exception.
@@ -58,6 +62,7 @@ public interface CacheErrorHandler {
 	void handleCachePutError(RuntimeException exception, Cache cache, Object key, @Nullable Object value);
 
 	/**
+	 * <p>处理移除缓存操作异常时的处理方法
 	 * Handle the given runtime exception thrown by the cache provider when
 	 * clearing an item with the specified {@code key}, possibly rethrowing
 	 * it as a fatal exception.
@@ -68,6 +73,7 @@ public interface CacheErrorHandler {
 	void handleCacheEvictError(RuntimeException exception, Cache cache, Object key);
 
 	/**
+	 * <p>处理清空缓存操作异常时的处理方法
 	 * Handle the given runtime exception thrown by the cache provider when
 	 * clearing the specified {@link Cache}, possibly rethrowing it as a
 	 * fatal exception.

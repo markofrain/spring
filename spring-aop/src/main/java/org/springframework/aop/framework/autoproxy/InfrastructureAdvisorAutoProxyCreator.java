@@ -40,6 +40,15 @@ public class InfrastructureAdvisorAutoProxyCreator extends AbstractAdvisorAutoPr
 		this.beanFactory = beanFactory;
 	}
 
+	/**
+	 * <p>重写父类方法
+	 * <p>依次满足以下条件
+	 * <p>1. BeanFactory不为空
+	 * <p>2. beanFactory中包含 {@code beanName}的bean定义
+	 * <p>3. beanFactory中该 {@code beanName}对应的角色是{@link BeanDefinition#ROLE_INFRASTRUCTURE}
+	 * @param beanName the name of the Advisor bean
+	 * @return
+	 */
 	@Override
 	protected boolean isEligibleAdvisorBean(String beanName) {
 		return (this.beanFactory != null && this.beanFactory.containsBeanDefinition(beanName) &&

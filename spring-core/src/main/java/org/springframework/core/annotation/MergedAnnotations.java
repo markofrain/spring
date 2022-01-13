@@ -443,6 +443,7 @@ public interface MergedAnnotations extends Iterable<MergedAnnotation<Annotation>
 	enum SearchStrategy {
 
 		/**
+		 * <p>只查找声明的注释，不考虑@Inherited注释，也不搜索超类或实现的接口</p>
 		 * Find only directly declared annotations, without considering
 		 * {@link Inherited @Inherited} annotations and without searching
 		 * superclasses or implemented interfaces.
@@ -450,6 +451,8 @@ public interface MergedAnnotations extends Iterable<MergedAnnotation<Annotation>
 		DIRECT,
 
 		/**
+		 * <p>找到所有直接声明的注释以及任何@Inherited超类注释。这个策略只有在与Class类型一起使用时才真正有用，因为@Inherited注释对于所有其他已注释的元素都将被忽略。此策略不搜索已实现的接口。</p>
+		 *
 		 * Find all directly declared annotations as well as any
 		 * {@link Inherited @Inherited} superclass annotations. This strategy
 		 * is only really useful when used with {@link Class} types since the
@@ -460,6 +463,7 @@ public interface MergedAnnotations extends Iterable<MergedAnnotation<Annotation>
 		INHERITED_ANNOTATIONS,
 
 		/**
+		 * <p>查找所有直接声明的和超类的注释。这个策略类似于INHERITED_ANNOTATIONS，只是注释不需要使用@Inherited进行元注释</p>
 		 * Find all directly declared and superclass annotations. This strategy
 		 * is similar to {@link #INHERITED_ANNOTATIONS} except the annotations
 		 * do not need to be meta-annotated with {@link Inherited @Inherited}.
@@ -468,6 +472,7 @@ public interface MergedAnnotations extends Iterable<MergedAnnotation<Annotation>
 		SUPERCLASS,
 
 		/**
+		 * <p>执行整个类型层次结构的完整搜索，包括超类和实现的接口。超类注释不需要使用@Inherited进行元注释</p>
 		 * Perform a full search of the entire type hierarchy, including
 		 * superclasses and implemented interfaces. Superclass annotations do
 		 * not need to be meta-annotated with {@link Inherited @Inherited}.
@@ -475,6 +480,7 @@ public interface MergedAnnotations extends Iterable<MergedAnnotation<Annotation>
 		TYPE_HIERARCHY,
 
 		/**
+		 * <p>在源和任何静态内部类(外围类)上执行整个结构的完整搜索。这个策略类似于TYPE_HIERARCHY，封闭的类(外围类)也会被搜索</p>
 		 * Perform a full search of the entire type hierarchy on the source
 		 * <em>and</em> any enclosing classes. This strategy is similar to
 		 * {@link #TYPE_HIERARCHY} except that {@linkplain Class#getEnclosingClass()

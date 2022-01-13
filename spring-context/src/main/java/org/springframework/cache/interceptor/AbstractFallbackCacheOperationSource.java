@@ -88,22 +88,27 @@ public abstract class AbstractFallbackCacheOperationSource implements CacheOpera
 		if (method.getDeclaringClass() == Object.class) {
 			return null;
 		}
-
+		// 先通过所给方法获取缓存的key值
 		Object cacheKey = getCacheKey(method, targetClass);
+		// 在已有缓存里看看有没有被缓存
 		Collection<CacheOperation> cached = this.attributeCache.get(cacheKey);
 
 		if (cached != null) {
+			// 如果有缓存，则查看是不是空缓存，是的话返回null，不是返回该缓存
 			return (cached != NULL_CACHING_ATTRIBUTE ? cached : null);
 		}
 		else {
+			// 在目标类和方法上寻找缓存操作
 			Collection<CacheOperation> cacheOps = computeCacheOperations(method, targetClass);
 			if (cacheOps != null) {
 				if (logger.isTraceEnabled()) {
 					logger.trace("Adding cacheable method '" + method.getName() + "' with attribute: " + cacheOps);
 				}
+				// 添加缓存
 				this.attributeCache.put(cacheKey, cacheOps);
 			}
 			else {
+				// 没有则标记为空
 				this.attributeCache.put(cacheKey, NULL_CACHING_ATTRIBUTE);
 			}
 			return cacheOps;
@@ -122,23 +127,31 @@ public abstract class AbstractFallbackCacheOperationSource implements CacheOpera
 		return new MethodClassKey(method, targetClass);
 	}
 
+	/**
+	 * 计算查找CacheOperation
+	 * <p>其顺序为1.specific target method;2. target class; 3. declaring method; 4. declaring class/interface
+	 * @param method
+	 * @param targetClass
+	 * @return
+	 */
 	@Nullable
 	private Collection<CacheOperation> computeCacheOperations(Method method, @Nullable Class<?> targetClass) {
-		// Don't allow no-public methods as required.
+		// 非public方法不能缓存
 		if (allowPublicMethodsOnly() && !Modifier.isPublic(method.getModifiers())) {
 			return null;
 		}
 
+		// 从目标类上获取接口方法
 		// The method may be on an interface, but we need attributes from the target class.
 		// If the target class is null, the method will be unchanged.
 		Method specificMethod = AopUtils.getMostSpecificMethod(method, targetClass);
-
+		// 首先尝试在目标类的方法上获取缓存操作
 		// First try is the method in the target class.
 		Collection<CacheOperation> opDef = findCacheOperations(specificMethod);
 		if (opDef != null) {
 			return opDef;
 		}
-
+		// 再fallback到声明该方法的类上获取缓存操作
 		// Second try is the caching operation on the target class.
 		opDef = findCacheOperations(specificMethod.getDeclaringClass());
 		if (opDef != null && ClassUtils.isUserLevelMethod(method)) {
@@ -146,11 +159,13 @@ public abstract class AbstractFallbackCacheOperationSource implements CacheOpera
 		}
 
 		if (specificMethod != method) {
+			// 如果还没有到属性，则再fallback，从给定方法上找
 			// Fallback is to look at the original method.
 			opDef = findCacheOperations(method);
 			if (opDef != null) {
 				return opDef;
 			}
+			// 最后在fallback到声明给定方法的类上找
 			// Last fallback is the class of the original method.
 			opDef = findCacheOperations(method.getDeclaringClass());
 			if (opDef != null && ClassUtils.isUserLevelMethod(method)) {

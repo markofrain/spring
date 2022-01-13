@@ -24,6 +24,8 @@ import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
 import org.springframework.util.StringUtils;
 
 /**
+ * <p>NamespaceHandler允许使用XML或使用注释配置声明性缓存管理。
+ * 这个名称空间处理程序是Spring缓存管理工具的核心功能。</p>
  * {@code NamespaceHandler} allowing for the configuration of declarative
  * cache management using either XML or using annotations.
  *
@@ -54,7 +56,9 @@ public class CacheNamespaceHandler extends NamespaceHandlerSupport {
 		return def;
 	}
 
-
+	/**
+	 * 注册bean定义解析器
+	 */
 	@Override
 	public void init() {
 		registerBeanDefinitionParser("annotation-driven", new AnnotationDrivenCacheBeanDefinitionParser());

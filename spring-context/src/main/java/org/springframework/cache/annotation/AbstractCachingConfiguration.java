@@ -32,6 +32,9 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.CollectionUtils;
 
 /**
+ * <p>抽象的缓存配置类。提供了启用Spring注解驱动的缓存管理功能的通用结构</p>
+ * <p>该类会自动状态，用户通过实现CachingConfigurer接口或继承CachingConfigurerSupport类即可将配置引入</p>
+ * <p>该类被相应拦截方式的配置类继承。例如基于代理proxy-based和基于AspectJ的配置类都继承了该类</p>
  * Abstract base {@code @Configuration} class providing common structure
  * for enabling Spring's annotation-driven cache management capability.
  *

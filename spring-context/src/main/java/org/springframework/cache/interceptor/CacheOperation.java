@@ -24,7 +24,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 
 /**
- * Base class for cache operations.
+ * cache operations基础抽象类
  *
  * @author Costin Leau
  * @author Stephane Nicoll

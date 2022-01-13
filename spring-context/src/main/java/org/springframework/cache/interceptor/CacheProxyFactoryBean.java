@@ -25,6 +25,8 @@ import org.springframework.beans.factory.SmartInitializingSingleton;
 import org.springframework.cache.CacheManager;
 
 /**
+ * <p>代理工厂bean，用于简化声明式缓存处理
+ *
  * Proxy factory bean for simplified declarative caching handling.
  * This is a convenient alternative to a standard AOP
  * {@link org.springframework.aop.framework.ProxyFactoryBean}
@@ -116,7 +118,10 @@ public class CacheProxyFactoryBean extends AbstractSingletonProxyFactoryBean
 		this.cacheInterceptor.afterSingletonsInstantiated();
 	}
 
-
+	/**
+	 * 创建一个主拦截器
+	 * @return
+	 */
 	@Override
 	protected Object createMainInterceptor() {
 		this.cacheInterceptor.afterPropertiesSet();

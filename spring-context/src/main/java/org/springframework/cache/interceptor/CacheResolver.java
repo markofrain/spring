@@ -21,6 +21,7 @@ import java.util.Collection;
 import org.springframework.cache.Cache;
 
 /**
+ * <p>定义了从缓存操作调用上下文CacheOperationInvocationContext中真正解析出所操作的Cache的方法
  * Determine the {@link Cache} instance(s) to use for an intercepted method invocation.
  *
  * <p>Implementations must be thread-safe.

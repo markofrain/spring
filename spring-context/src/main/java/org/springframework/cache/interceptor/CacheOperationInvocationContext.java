@@ -19,6 +19,10 @@ package org.springframework.cache.interceptor;
 import java.lang.reflect.Method;
 
 /**
+ * <p>缓存操作上下文。其定义了获取缓存操作、目标对象、方法和参数的接口。也就是说在SpringCache的整个过程中，都是通过该上下文来获取这些相关信息
+ * <p>其在CacheInteceptor的抽象父类CacheAspectSupport中有实现
+ * @see org.springframework.cache.interceptor.CacheAspectSupport.CacheOperationContext
+ *
  * Representation of the context of the invocation of a cache operation.
  *
  * <p>The cache operation is static and independent of a particular invocation;

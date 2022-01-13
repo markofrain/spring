@@ -27,6 +27,10 @@ import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotationMetadata;
 
 /**
+ * <p>该类根据当前BeanDefinitionRegistry来注册一个自动代理创建器，
+ * 其基于一个@Enable*注解，该注解需要包含mode和proxyTargetClass参数，并正确设值。
+ * 也就是说在SpringCache中配置的一些增强Advisor，将会通过该自动代理创建器自动生成</p>
+ *
  * Registers an auto proxy creator against the current {@link BeanDefinitionRegistry}
  * as appropriate based on an {@code @Enable*} annotation having {@code mode} and
  * {@code proxyTargetClass} attributes set to the correct values.

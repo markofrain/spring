@@ -25,6 +25,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 
 /**
+ * <p>支持复数缓存操作源的CacheOperationSource实现类，其持有一个CacheOperationSource数组对象，能够迭代缓存操作源数组获取缓存操作
  * Composite {@link CacheOperationSource} implementation that iterates
  * over a given array of {@code CacheOperationSource} instances.
  *

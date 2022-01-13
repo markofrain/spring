@@ -69,6 +69,13 @@ public abstract class AopConfigUtils {
 		return registerAutoProxyCreatorIfNecessary(registry, null);
 	}
 
+	/**
+	 * InfrastructureAdvisorAutoProxyCreate注入到容器中。
+	 * 该类主要做的是自动创建代理，而从这个名字上也能看出来，该类只为Role为INFRASTRUCTURE的类生成代理
+	 * @param registry
+	 * @param source
+	 * @return
+	 */
 	@Nullable
 	public static BeanDefinition registerAutoProxyCreatorIfNecessary(
 			BeanDefinitionRegistry registry, @Nullable Object source) {

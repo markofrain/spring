@@ -21,6 +21,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.function.SingletonSupplier;
 
 /**
+ * <p>调用缓存操作的抽象基本组件
  * A base component for invoking {@link Cache} operations and using a
  * configurable {@link CacheErrorHandler} when an exception occurs.
  *

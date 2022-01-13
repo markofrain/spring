@@ -35,6 +35,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
 
 /**
+ * 缓存注解解析类，用于解析四个缓存注解
  * Strategy implementation for parsing Spring's {@link Caching}, {@link Cacheable},
  * {@link CacheEvict}, and {@link CachePut} annotations.
  *
@@ -78,6 +79,12 @@ public class SpringCacheAnnotationParser implements CacheAnnotationParser, Seria
 		return parseCacheAnnotations(defaultConfig, method);
 	}
 
+	/**
+	 * localOnly: 上一级调用过程中，确保实现类上的注解优先于接口上的注解
+	 * @param cachingConfig 类或方法对应的默认配置(注解上未配置某一属性时，采用缺省配置)
+	 * @param ae 对应的类或方法
+	 * @return
+	 */
 	@Nullable
 	private Collection<CacheOperation> parseCacheAnnotations(DefaultCacheConfig cachingConfig, AnnotatedElement ae) {
 		Collection<CacheOperation> ops = parseCacheAnnotations(cachingConfig, ae, false);
@@ -91,17 +98,26 @@ public class SpringCacheAnnotationParser implements CacheAnnotationParser, Seria
 		return ops;
 	}
 
+	/**
+	 * 解析缓存注解，找到所有缓存注解定义成CacheOperation并返回
+	 * @param cachingConfig
+	 * @param ae
+	 * @param localOnly
+	 * @return
+	 */
 	@Nullable
 	private Collection<CacheOperation> parseCacheAnnotations(
 			DefaultCacheConfig cachingConfig, AnnotatedElement ae, boolean localOnly) {
-
+		// 获取目标类ae上的相关注解，并合并相同注解的属性
 		Collection<? extends Annotation> anns = (localOnly ?
+				// 不查找接口上的注解,getAnnotations
 				AnnotatedElementUtils.getAllMergedAnnotations(ae, CACHE_OPERATION_ANNOTATIONS) :
+				// 查找接口上的注解,findAnnotations
 				AnnotatedElementUtils.findAllMergedAnnotations(ae, CACHE_OPERATION_ANNOTATIONS));
 		if (anns.isEmpty()) {
 			return null;
 		}
-
+		// 把缓存上的注解类型都验证并组装成CacheOperation之后返回
 		final Collection<CacheOperation> ops = new ArrayList<>(1);
 		anns.stream().filter(ann -> ann instanceof Cacheable).forEach(
 				ann -> ops.add(parseCacheableAnnotation(ae, cachingConfig, (Cacheable) ann)));
@@ -114,6 +130,13 @@ public class SpringCacheAnnotationParser implements CacheAnnotationParser, Seria
 		return ops;
 	}
 
+	/**
+	 * 解析缓存注解，并转换为CacheableOperation
+	 * @param ae
+	 * @param defaultConfig
+	 * @param cacheable
+	 * @return
+	 */
 	private CacheableOperation parseCacheableAnnotation(
 			AnnotatedElement ae, DefaultCacheConfig defaultConfig, Cacheable cacheable) {
 

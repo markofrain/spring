@@ -19,6 +19,8 @@ package org.springframework.cache.interceptor;
 import org.springframework.lang.Nullable;
 
 /**
+ * <p>抽象缓存操作的调用
+ *
  * Abstract the invocation of a cache operation.
  *
  * <p>Does not provide a way to transmit checked exceptions but

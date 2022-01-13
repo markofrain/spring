@@ -26,6 +26,7 @@ import org.springframework.util.ClassUtils;
 import org.springframework.util.StringUtils;
 
 /**
+ * <p>根据@EnableCaching注解确定导入的是哪种缓存配置,mode参数指定的拦截方式策略选择器</p>
  * Selects which implementation of {@link AbstractCachingConfiguration} should
  * be used based on the value of {@link EnableCaching#mode} on the importing
  * {@code @Configuration} class.
@@ -62,6 +63,9 @@ public class CachingConfigurationSelector extends AdviceModeImportSelector<Enabl
 
 
 	/**
+	 * PROXY的返回ProxyCachingConfiguration,
+	 * ASPECTJ的返回AspectJCachingConfiguration
+	 *
 	 * Returns {@link ProxyCachingConfiguration} or {@code AspectJCachingConfiguration}
 	 * for {@code PROXY} and {@code ASPECTJ} values of {@link EnableCaching#mode()},
 	 * respectively. Potentially includes corresponding JCache configuration as well.
@@ -79,6 +83,7 @@ public class CachingConfigurationSelector extends AdviceModeImportSelector<Enabl
 	}
 
 	/**
+	 * <p>通过 {@link AdviceMode#PROXY} 方式的导入</p>
 	 * Return the imports to use if the {@link AdviceMode} is set to {@link AdviceMode#PROXY}.
 	 * <p>Take care of adding the necessary JSR-107 import if it is available.
 	 */
@@ -93,6 +98,7 @@ public class CachingConfigurationSelector extends AdviceModeImportSelector<Enabl
 	}
 
 	/**
+	 * <p>通过 {@link AdviceMode#ASPECTJ} 方式的导入</p>
 	 * Return the imports to use if the {@link AdviceMode} is set to {@link AdviceMode#ASPECTJ}.
 	 * <p>Take care of adding the necessary JSR-107 import if it is available.
 	 */

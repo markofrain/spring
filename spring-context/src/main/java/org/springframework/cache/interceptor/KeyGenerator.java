@@ -19,6 +19,7 @@ package org.springframework.cache.interceptor;
 import java.lang.reflect.Method;
 
 /**
+ * 缓存key生成器
  * Cache key generator. Used for creating a key based on the given method
  * (used as context) and its parameters.
  *

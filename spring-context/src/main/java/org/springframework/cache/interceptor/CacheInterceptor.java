@@ -26,6 +26,9 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 
 /**
+ *
+ * 继承自CacheAspectSupport，用于调用execute方法
+ *
  * AOP Alliance MethodInterceptor for declarative cache
  * management using the common Spring caching infrastructure
  * ({@link org.springframework.cache.Cache}).

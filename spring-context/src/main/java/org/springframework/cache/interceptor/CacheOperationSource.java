@@ -28,7 +28,7 @@ import org.springframework.lang.Nullable;
  *
  * @author Costin Leau
  * @author Juergen Hoeller
- * @since 3.1
+ * @since 3.1e
  */
 public interface CacheOperationSource {
 
